@@ -41,27 +41,15 @@ public class Autotest_3 {
 
 
 /*
-public class Printer {
-    public static void main(String[] args) {
-        int a = 0;
-        char op = ' ';
-        int b = 0;
-
-        if (args.length == 0) {
-            // При отправке кода на Выполнение, вы можете варьировать эти параметры
-            a = 3;
-            op = '+';
-            b = 7;
-        } else {
-            a = Integer.parseInt(args[0]);
-            op = args[1].charAt(0);
-            b = Integer.parseInt(args[2]);
+public static String calculate(char op, int a, int b) {
+        Integer result;
+        switch (op) {
+            case '+' -> result = a + b;
+            case '-' -> result = a - b;
+            case '*' -> result = a * b;
+            case '/' -> {if (b != 0) result = a / b; else {return "На ноль делить нельзя";}}
+            default -> {return "Некорректный оператор: '" + op + "'" ;}
         }
-
-        Calculator calculator = new Calculator();
-        int result = calculator.calculate(op, a, b);
-        System.out.println(result);
+        return result.toString();
     }
-}
-
  */
