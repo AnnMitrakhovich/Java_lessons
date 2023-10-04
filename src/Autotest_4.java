@@ -1,5 +1,6 @@
 import java.util.Collections;
 import java.util.LinkedList;
+
 public class Autotest_4 {
     public static void main(String[] args) {
         LinkedList<Object> ll = new LinkedList<>();
@@ -18,18 +19,12 @@ public class Autotest_4 {
         System.out.println(ll);
         LinkedList<Object> reversedList = answer.revert(ll);
         System.out.println(reversedList);
-
     }
 }
-
 
 class LLTasks {
     public static LinkedList<Object> revert(LinkedList<Object> ll) {
         Collections.reverse(ll);
         return ll;
-
-
     }
-
-
 }
