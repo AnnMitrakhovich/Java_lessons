@@ -14,7 +14,7 @@ import java.util.Map;
 public class lesson_5_map_3 {
     public static void main(String[] args) {
 
-        System.out.println(checkBracks("<{a+{(d*3)}>"));
+        System.out.println(checkBracks("<{a}+{(d*3)}>"));
 
     }
 
@@ -29,7 +29,7 @@ public class lesson_5_map_3 {
         for (char elements : strArr) {
             if (mapping.containsKey(elements)) {
                 res.add(elements);
-                continue;
+
 
             } else if (mapping.containsValue(elements)) {
                 if (res.isEmpty()) {
