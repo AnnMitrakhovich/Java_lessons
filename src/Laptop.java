@@ -13,9 +13,7 @@
 фильтрации можно также в Map. Отфильтровать ноутбуки их первоначального множества и
 вывести проходящие по условиям.*/
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Laptop {
     double displaySize;
@@ -52,6 +50,19 @@ public class Laptop {
                 this.processor.equals(newLaptop.processor) && this.os.equals(newLaptop.os) &&
                 this.color.equals(newLaptop.color);
     }
+    public static Map<Integer, String> addFilter() {
+        Map<Integer, String> filter = new HashMap<>();
+        filter.put(1, "разрешение экрана");
+        filter.put(2, "по объему ОЗУ");
+        filter.put(3, "по размеру ЖД");
+        filter.put(4, "по ОС");
+        return filter;
+    }
+    public static Set<Laptop> filter(int n, Set<Laptop> laptop) {
+        Set<Laptop> filtredSet= new HashSet<>();
+        return filtredSet;
+
+    }
 
     public static void main(String[] args) {
         Laptop laptop1 = new Laptop(12.5, 8, 256, "HDD", "Intel Core","Windows 10", "black");
@@ -64,6 +75,11 @@ public class Laptop {
         Laptop laptop8 = new Laptop(15, 32, 256, "SDD", "Intel i5","macOS", "black");
         Set<Laptop> data = new HashSet<>(List.of(laptop1,laptop2,laptop3,laptop4,laptop5,laptop6,laptop7,laptop8));
         System.out.println(data);
+        System.out.println("Выберите параметр(только цифру) фильтрации из списка: " + addFilter());
+        Scanner scanner = new Scanner("");
+        int n = scanner.nextInt();
+        filter(n, data);
+
 
     }
 
