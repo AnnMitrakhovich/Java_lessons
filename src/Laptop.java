@@ -14,14 +14,15 @@
 вывести проходящие по условиям.*/
 
 public class Laptop {
-    double displaySize;
+    float displaySize;
     int ram;
     int storage;
     String storageName;
     String processor;
     String os;
     String color;
-    public Laptop(double displaySize, int ram, int storage, String storageName, String processor,
+
+    public Laptop(float displaySize, int ram, int storage, String storageName, String processor,
                   String os, String color) {
         this.displaySize = displaySize;
         this.ram = ram;
@@ -33,7 +34,14 @@ public class Laptop {
 
     }
 
+    public String toString() {
+        return String.format("Разрешение экрана: %f, ОЗУ: %d,ЖД: %s, %d, процессор: %s, ОС:%s, цвет: %s\n",
+                displaySize,ram,storageName,storage,os,color);
+    }
 
+    public static void main(String[] args) {
+
+    }
 
 
 }
