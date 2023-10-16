@@ -32,6 +32,7 @@ public class Autotest_5 {
         System.out.println(result2);
         int prevResult = calculator.calculate(undo, 0, 0);
         System.out.println(prevResult);
+
     }
 }
 
