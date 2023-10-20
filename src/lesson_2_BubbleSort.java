@@ -34,18 +34,50 @@ public class lesson_2_BubbleSort {
         private static FileWriter fileWriter;
 
         public static void sort(int[] mas) {
-            int temp = mas[0];
-            for (int i = mas.length - 1; i >= 1; i--) {
-                for (int j = 0; j < i; j++) {
-                    if (mas[j] > mas[j + 1]) {
-                        temp = mas[j];
-                        mas[j] = mas[j + 1];
-                        mas[j + 1] = temp;
-                    }
+            try {
+                log = new File("log.txt");
+                log.createNewFile();
+                fileWriter = new FileWriter(log);
+                bubbleSort(mas);
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
+        }
+        private static int[] bubbleSort(int[] mas) {
+            boolean isSorted = false;
+            int buffer;
 
+            while (!isSorted) {
+                isSorted = true;
+                for (int i = 0; i < mas.length - 1; i++) {
+                    if (mas[i] > mas[i + 1]) {
+                        isSorted = false;
+
+                        buffer = mas[i];
+                        mas[i] = mas[i + 1];
+                        mas[i + 1] = buffer;
+                    }
+                }
+                logStep(Arrays.toString(mas));
+            }
+            return mas;
+        }
+
+        public static void logStep(String note){
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                String timestamp = dateFormat.format(new Date());
+                fileWriter.write(timestamp + " " + note + "\n");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
