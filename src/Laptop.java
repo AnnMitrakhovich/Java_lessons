@@ -13,7 +13,7 @@
 фильтрации можно также в Map. Отфильтровать ноутбуки их первоначального множества и
 вывести проходящие по условиям.*/
 
-import java.io.IOException;
+
 import java.util.*;
 
 public class Laptop {
@@ -68,59 +68,29 @@ public class Laptop {
         return filter;
     }
 
-    public static Set<Laptop> filterData(Set<Laptop> laptop, Map<String, String> choiceMap) throws IOException {
+    public static Set<Laptop> filterData(Set<Laptop> laptops, Map<String, String> choiceMap) {
+        Set<Laptop> filteredSet = new HashSet<>(laptops);
         for (Map.Entry<String, String> entry : choiceMap.entrySet()) {
             String key = entry.getKey();
             switch (key) {
                 case "display":
-                    for (Laptop item : laptop) {
-                        if (item.displaySize < Double.parseDouble(choiceMap.get(key))) {
-                            laptop.remove(item);
-                            choiceMap.remove(key);
-                            break;
-                        }
-                    }
+                    filteredSet.removeIf(item -> item.displaySize < Double.parseDouble(choiceMap.get(key)));
+                    break;
                 case "RAM":
-                    if (choiceMap.get(key) != null) {
-                        for (Laptop item : laptop) {
-                            if (item.ram < Integer.parseInt(choiceMap.get(key))) {
-                                laptop.remove(item);
-                                choiceMap.remove(key);
-                                break;
-                            }
-                        }
-                    } else {
-                        break;
-
-                    }
+                    filteredSet.removeIf(item -> item.ram < Integer.parseInt(choiceMap.get(key)));
+                    break;
                 case "Storage":
-                    if (choiceMap.get(key) != null) {
-                        for (Laptop item : laptop) {
-                            if (item.storage < Integer.parseInt(choiceMap.get(key))) {
-                                laptop.remove(item);
-                                choiceMap.remove(key);
-                                break;
-                            }
-                        }
-                    } else {
-                        break;
-
-                    }
+                    filteredSet.removeIf(item -> item.storage < Integer.parseInt(choiceMap.get(key)));
+                    break;
                 case "OS":
-                    for (Laptop item : laptop) {
-                        if (item.os != choiceMap.get(key)) {
-                            laptop.remove(item);
-                            choiceMap.remove(key);
-                            break;
-                        }
-                    }
+                    filteredSet.removeIf(item -> !item.os.equals(choiceMap.get(key)));
+                    break;
                 default:
                     break;
             }
         }
-        return laptop;
+        return filteredSet;
     }
-
 
     public static Map<String, String> choice(int n, Set<String> choiceOs, Set<Double> choiceDisplay,
                                              Set<Integer> choiceRam, Set<Integer> choiceStorage, Map<String, String> choiceMap) {
@@ -164,7 +134,7 @@ public class Laptop {
         return choiceMap;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Laptop laptop1 = new Laptop(12.5, 8, 256, "HDD", "Intel Core", "Windows", "black");
         Laptop laptop6 = new Laptop(12.5, 8, 256, "HDD", "Intel Core", "Windows", "black");
         Laptop laptop2 = new Laptop(12.5, 16, 256, "HDD", "AMD Ryzen", "Windows", "silver");
