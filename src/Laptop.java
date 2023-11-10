@@ -45,12 +45,17 @@ public class Laptop {
         return (int) (this.displaySize + this.ram + this.storageName.hashCode() + this.storage + this.processor.hashCode() + this.os.hashCode() + this.color.hashCode());
     }
 
-    public boolean equals(Object laptop) {
-        Laptop newLaptop = (Laptop) laptop;
-        return this.storageName.equals(newLaptop.storageName) && this.displaySize == newLaptop.displaySize &&
-                this.ram == newLaptop.ram && this.storage == newLaptop.storage &&
-                this.processor.equals(newLaptop.processor) && this.os.equals(newLaptop.os) &&
-                this.color.equals(newLaptop.color);
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Laptop laptop = (Laptop) obj;
+        return displaySize == laptop.displaySize &&
+                ram == laptop.ram &&
+                storage == laptop.storage &&
+                storageName.equals(laptop.storageName) &&
+                processor.equals(laptop.processor) &&
+                os.equals(laptop.os) &&
+                color.equals(laptop.color);
     }
 
     public static Map<Integer, String> addFilter() {
@@ -63,38 +68,37 @@ public class Laptop {
     }
 
     public static Set<Laptop> filterData(Set<Laptop> laptop, Map<String, String> choiceMap) {
-        Set<Laptop> filtredSet = new HashSet<>();
         for (Map.Entry<String, String> entry : choiceMap.entrySet()) {
             String key = entry.getKey();
             switch (key) {
                 case "display":
                     for (Laptop item : laptop) {
-                        if (item.displaySize >= Double.parseDouble(choiceMap.get(key))) {
-                            filtredSet.add(item);
+                        if (item.displaySize < Double.parseDouble(choiceMap.get(key))) {
+                            laptop.remove(item);
                             choiceMap.remove(key);
                             break;
                         }
                     }
                 case "RAM":
                     for (Laptop item : laptop) {
-                        if (item.ram >= Integer.parseInt(choiceMap.get(key))) {
-                            filtredSet.add(item);
+                        if (item.ram < Integer.parseInt(choiceMap.get(key))) {
+                            laptop.remove(item);
                             choiceMap.remove(key);
                             break;
                         }
                     }
                 case "Storage":
                     for (Laptop item : laptop) {
-                        if (item.storage >= Integer.parseInt(choiceMap.get(key))) {
-                            filtredSet.add(item);
+                        if (item.storage < Integer.parseInt(choiceMap.get(key))) {
+                            laptop.remove(item);
                             choiceMap.remove(key);
                             break;
                         }
                     }
                 case "OS":
                     for (Laptop item : laptop) {
-                        if (item.os == choiceMap.get(key)) {
-                            filtredSet.add(item);
+                        if (item.os != choiceMap.get(key)) {
+                            laptop.remove(item);
                             choiceMap.remove(key);
                             break;
                         }
@@ -103,7 +107,7 @@ public class Laptop {
                     break;
             }
         }
-        return filtredSet;
+        return laptop;
     }
 
 
