@@ -64,25 +64,48 @@ public class Laptop {
 
     public static Set<Laptop> filterData(Set<Laptop> laptop, Map<String, String> choiceMap) {
         Set<Laptop> filtredSet = new HashSet<>();
-        if (choiceMap.containsKey("display")) {
-            String min1 = choiceMap.get("display");
-            double minDisplay = Double.parseDouble(min1);
-            for (Laptop item : laptop) {
-                if (item.displaySize > minDisplay) {
-
-                    filtredSet.add(item);
-
-                } else {
-                    System.out.println("таких нет");
-                }
-
+        for (Map.Entry<String, String> entry : choiceMap.entrySet()) {
+            String key = entry.getKey();
+            switch (key) {
+                case "display":
+                    for (Laptop item : laptop) {
+                        if (item.displaySize >= Double.parseDouble(choiceMap.get(key))) {
+                            filtredSet.add(item);
+                            choiceMap.remove(key);
+                            break;
+                        }
+                    }
+                case "RAM":
+                    for (Laptop item : laptop) {
+                        if (item.ram >= Integer.parseInt(choiceMap.get(key))) {
+                            filtredSet.add(item);
+                            choiceMap.remove(key);
+                            break;
+                        }
+                    }
+                case "Storage":
+                    for (Laptop item : laptop) {
+                        if (item.storage >= Integer.parseInt(choiceMap.get(key))) {
+                            filtredSet.add(item);
+                            choiceMap.remove(key);
+                            break;
+                        }
+                    }
+                case "OS":
+                    for (Laptop item : laptop) {
+                        if (item.os == choiceMap.get(key)) {
+                            filtredSet.add(item);
+                            choiceMap.remove(key);
+                            break;
+                        }
+                    }
+                default:
+                    break;
             }
         }
-
-
         return filtredSet;
-
     }
+
 
     public static Map<String, String> choice(int n, Set<String> choiceOs, Set<Double> choiceDisplay,
                                              Set<Integer> choiceRam, Set<Integer> choiceStorage, Map<String, String> choiceMap) {
@@ -144,7 +167,7 @@ public class Laptop {
                 laptop6.storage, laptop7.storage, laptop8.storage));
         Set<String> choiceOs = new HashSet<>(List.of(laptop1.os, laptop2.os, laptop3.os, laptop4.os, laptop5.os, laptop6.os, laptop7.os, laptop8.os));
         System.out.println(data);
-        System.out.println("Выберите параметр(только цифру) фильтрации из списка: " + addFilter());
+        System.out.println("Выберите параметр(только цифру) фильтрации из списка: " + addFilter() + " по окончании нажмите любую букву");
         Scanner scanner = new Scanner(System.in);
         Map<String, String> resChoiceMap = new HashMap<>();
         while (scanner.hasNextInt()) {
